@@ -70,8 +70,6 @@ output_file = os.path.join("output.txt")
 
 # open the output file, create a header row, and then write the zipped object to the csv
 with open(output_file, "w") as datafile:
-    #writer = csv.writer(datafile)
-    
     datafile.write("Financial Analysis\n")
     datafile.write("----------------------------\n")
     datafile.write(f"Total Months: {months}\n")

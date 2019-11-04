@@ -37,19 +37,38 @@ for i in results:
 votes.sort(reverse = True)
 winner = ""
 
-print("\nElection Results")
-print("-------------------------")
-print("Total Votes: " + str(count))
-print("-------------------------")
+#Output to File
+output_file = os.path.join("output.txt")
 
-for i in range(len(votes)):
-    for name, numVotes in results.items():    # for name, number of Votes in results  
-        if votes[i] == numVotes:              # based on the current sorted votes list, find the candidate that has that vote count.  Short-coming in this is when two candidates have the same number of votes
-            numVotes = format(numVotes, ",")    #formatting for prettier output
-            percent = format(votes[i]/count, "0.3%")    #formatting for prettier output
-            print(f"{name}: {percent} ({numVotes})")    #printing the required information
-            if i ==0:
-                winner = name   #because we sorted from highest to lowest, the winner is the first person's name we find in votes
-print("-------------------------")
-print(f"Winner: {winner}")
-print("-------------------------")
+# open the output file, create a header row, and then write the zipped object to the csv
+with open(output_file, "w") as datafile:
+
+    print("\nElection Results")
+    print("-------------------------")
+    print("Total Votes: " + str(count))
+    print("-------------------------")
+
+
+    datafile.write("\nElection Results \n")
+    datafile.write("-------------------------\n")
+    datafile.write("Total Votes: " + str(count) + "\n")
+    datafile.write("-------------------------\n")
+
+    for i in range(len(votes)):
+        for name, numVotes in results.items():    # for name, number of Votes in results  
+            if votes[i] == numVotes:              # based on the current sorted votes list, find the candidate that has that vote count.  Short-coming in this is when two candidates have the same number of votes
+                numVotes = format(numVotes, ",")    #formatting for prettier output
+                percent = format(votes[i]/count, "0.3%")    #formatting for prettier output
+                print(f"{name}: {percent} ({numVotes})")    #printing the required information
+                datafile.write(f"{name}: {percent} ({numVotes})\n")
+                if i ==0:
+                    winner = name   #because we sorted from highest to lowest, the winner is the first person's name we find in votes
+    print("-------------------------")
+    print(f"Winner: {winner}")
+    print("-------------------------")
+
+    datafile.write("-------------------------\n")
+    datafile.write(f"Winner: {winner}\n")
+    datafile.write("-------------------------\n")
+    
+ 
